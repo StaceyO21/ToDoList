@@ -1,30 +1,66 @@
 package org.launchcode.todolist.models;
 
 
-import lombok.Generated;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.mysql.cj.xdevapi.Table;
+
+import org.launchcode.todolist.data.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Table(name = "Task")
-public class Task{
+@Table(name = "task")
+public class Task implements TaskRepository {
 
-    @Id
-    @Generated(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Autowired
+    TaskRepository taskRepository;
+
+    private static int nextId = 1;
+    private final int id;
 
     private String task;
 
-    private LocalDate dateRegistered = LocalDate.now();
+    private final LocalDate dateRegistered;
 
     private String description;
 
+    public Task(String task, LocalDate dateRegistered, String description) {
+        this.id = nextId;
+        this.task = task;
+        this.dateRegistered = LocalDate.now();
+        this.description = description;
+        nextId++;
+    }
 
+    public Task save(Task task){return taskRepository.save(task);}
+
+    public Task createTask(Task task){ return taskRepository.save(task);}
+
+    public TaskRepository getTaskRepository() {
+        return taskRepository;
+    }
+
+    public void setTaskRepository(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

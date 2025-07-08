@@ -1,5 +1,6 @@
 package org.launchcode.todolist.controllers;
 
+import org.launchcode.todolist.models.Task;
 import org.launchcode.todolist.data.TaskRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.config.Task;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("task")
 public class TaskController {
 
@@ -27,8 +28,5 @@ public class TaskController {
         Task newTask = new Task();
         newTask.setTask(task);
         newTask.setDescription(description);
-
-
-
     }
 }
