@@ -20,14 +20,13 @@ public class Task implements TaskRepository {
 
     private String task;
 
-    private final LocalDate dateRegistered;
+    private final LocalDate dateRegistered = LocalDate.now();
 
     private String description;
 
-    public Task(String task, LocalDate dateRegistered, String description) {
+    public Task(String task, String description) {
         this.id = nextId;
         this.task = task;
-        this.dateRegistered = LocalDate.now();
         this.description = description;
         nextId++;
     }
